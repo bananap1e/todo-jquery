@@ -1,15 +1,22 @@
 const todosArray = [];
 let id = 0;
 let $newTodoButton = $('#new-todo-button');
+let $newTodo = $('#new-todo');
 
 $newTodoButton.bind("click", () => {
     render();
 });
 
+$newTodo.keyup(() => {
+    if(event.keyCode === 13) {
+        render();
+    }
+});
+
 const addTodo = () => {
-    let $newTodo = $('#new-todo').val().trim();
+    let $newTodoText = $('#new-todo').val().trim();
     let toDo = {
-        text: $newTodo,
+        text: $newTodoText,
         id: id,
         checked: false,
     };
