@@ -1,2 +1,4 @@
-.idea/
-.bootstrap/
+.gitignore
+.DS_Store
+.idea
+.bootstrap
