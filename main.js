@@ -5,11 +5,27 @@ let $newTodo = $('#new-todo');
 let $listGroup = $('.list-group');
 const postPerPage = 5;
 
+$(document).ready(function() {
+    if (JSON.parse(localStorage.getItem('array'))) {
+        todosArray = JSON.parse(localStorage.getItem('array'));
+        pagination();
+    } else {
+        return false
+    }
+});
+
+const storage = () => {
+    localStorage.setItem('array', JSON.stringify(todosArray));
+};
+
 const addTodo = () => {
     let text = $("#new-todo").val().trim();
     if(!text){
         return false
     }
+    do {
+        id += 1
+    } while (id < todosArray.length);
     let toDo = {
         text: text,
         checked: false,
@@ -18,7 +34,6 @@ const addTodo = () => {
     todosArray.push(toDo);
     $('#new-todo').val("");
     pagination('last');
-    id += 1;
 };
 
 const render = (page) => {
@@ -85,6 +100,7 @@ const pagination = (flagPage) => {
         pages += `<li class="${className}"><a href="#" id="${i}">${i}</a></li>`
     }
     pagesContainer.append(pages);
+    storage();
     render(currentPage);
 };
 
@@ -146,4 +162,3 @@ $('.tab').click(function(){
     $(this).addClass('active');
     pagination('first');
 });
-
