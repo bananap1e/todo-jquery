@@ -14,3 +14,7 @@
     text-align: center;
 }
 
+#done-bar {
+    display: block;
+    float: right;
+}

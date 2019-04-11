@@ -3,6 +3,8 @@ let id = 0;
 let $newTodoButton = $('#new-todo-button');
 let $newTodo = $('#new-todo');
 let $listGroup = $('.list-group');
+let $currentBar = $('#current-bar')
+let $doneBar = $('#done-bar')
 const postPerPage = 5;
 
 $(document).ready(function() {
@@ -101,7 +103,19 @@ const pagination = (flagPage) => {
     }
     pagesContainer.append(pages);
     storage();
+    progressBar();
     render(currentPage);
+};
+
+const progressBar = () => {
+    const doneTasks = _.filter(todosArray, 'checked');
+    const activeTasks = _.filter(todosArray, {'checked': false});
+    const doneProgBar = doneTasks.length / todosArray.length * 100;
+    const activeProgBar = activeTasks.length / todosArray.length * 100;
+    const doneWidthValue = (`${doneProgBar}%`);
+    const activeWidthValue = (`${activeProgBar}%`)
+    $currentBar.css({width: activeWidthValue}).text(`${doneTasks.length} tasks remaining`);
+    $doneBar.css({width: doneWidthValue}).text(`${activeTasks.length} tasks done`);
 };
 
 $newTodoButton.bind("click", () => {
@@ -151,7 +165,7 @@ $("body").on('dblclick', '.todo-label', function() {
     });
 });
 
-$('body').on('click', '#pages .page', function() {
+$('.list-group-item').on('click', '#pages .page', function() {
     $('#pages .page').removeClass('active');
     $(this).addClass('active');
     pagination();
