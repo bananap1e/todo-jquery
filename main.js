@@ -17,8 +17,7 @@ $(document).ready(function() {
 
 const storage = () => {
     localStorage.setItem('array', JSON.stringify(todosArray));
-}
-
+};
 
 const addTodo = () => {
     let text = $("#new-todo").val().trim();
