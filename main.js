@@ -13,10 +13,10 @@ const addTodo = () => {
     let toDo = {
         text: text,
         checked: false,
-        id: id
+        id: id,
     };
     todosArray.push(toDo);
-    $("#new-todo").val("");
+    $('#new-todo'').val("");
     pagination('last');
     id += 1;
 };
