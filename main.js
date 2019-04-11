@@ -109,10 +109,10 @@ const pagination = (flagPage) => {
 
 const progressBar = () => {
     const doneTasks = _.filter(todosArray, 'checked');
-    const activeTasks = _.filter(todosArray, {'checked': false});
     const doneProgBar = doneTasks.length / todosArray.length * 100;
-    const activeProgBar = activeTasks.length / todosArray.length * 100;
     const doneWidthValue = (`${doneProgBar}%`);
+    const activeTasks = _.filter(todosArray, {'checked': false});
+    const activeProgBar = activeTasks.length / todosArray.length * 100;
     const activeWidthValue = (`${activeProgBar}%`)
     $currentBar.css({width: activeWidthValue}).text(`${doneTasks.length} tasks remaining`);
     $doneBar.css({width: doneWidthValue}).text(`${activeTasks.length} tasks done`);
@@ -165,7 +165,7 @@ $("body").on('dblclick', '.todo-label', function() {
     });
 });
 
-$('.list-group-item').on('click', '#pages .page', function() {
+$('body').on('click', '#pages .page', function() {
     $('#pages .page').removeClass('active');
     $(this).addClass('active');
     pagination();
