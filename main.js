@@ -5,7 +5,6 @@ let $newTodo = $('#new-todo');
 let $listGroup = $('.list-group');
 const postPerPage = 5;
 
-
 $(document).ready(function() {
     if (JSON.parse(localStorage.getItem('array'))) {
         todosArray = JSON.parse(localStorage.getItem('array'));
