@@ -114,8 +114,8 @@ const progressBar = () => {
     const activeTasks = _.filter(todosArray, {'checked': false});
     const activeProgBar = activeTasks.length / todosArray.length * 100;
     const activeWidthValue = (`${activeProgBar}%`)
-    $currentBar.css({width: activeWidthValue}).text(`${doneTasks.length} tasks remaining`);
-    $doneBar.css({width: doneWidthValue}).text(`${activeTasks.length} tasks done`);
+    $currentBar.css({width: activeWidthValue}).text(`${activeTasks.length} tasks remaining`);
+    $doneBar.css({width: doneWidthValue}).text(`${doneTasks.length} tasks done`);
 };
 
 $newTodoButton.bind("click", () => {
