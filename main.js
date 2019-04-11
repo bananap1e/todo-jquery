@@ -62,7 +62,6 @@ const render = (page) => {
             </li>`;
     });
     $listGroup.append(content);
-
     $('li.list-group-item-success .toggle').prop('checked', true);
 };
 
@@ -165,5 +164,3 @@ $('.tab').click(function(){
     $(this).addClass('active');
     pagination('first');
 });
-
-
