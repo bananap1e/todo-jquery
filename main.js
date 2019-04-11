@@ -16,7 +16,7 @@ const addTodo = () => {
         id: id,
     };
     todosArray.push(toDo);
-    $('#new-todo'').val("");
+    $('#new-todo').val("");
     pagination('last');
     id += 1;
 };
