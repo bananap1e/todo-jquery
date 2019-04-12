@@ -1,7 +1,7 @@
 $(document).ready(() => {
     if (JSON.parse(localStorage.getItem('array'))) {
         todosArray = JSON.parse(localStorage.getItem('array'));
-        pagination();
+        render();
     } else {
         return false
     }
@@ -25,7 +25,7 @@ $body.on('change', '.toggle', function() {
             el.checked = this.checked;
         }
     });
-    pagination();
+    render();
 });
 
 $body.on('click', '.destroy', function() {
@@ -35,7 +35,7 @@ $body.on('click', '.destroy', function() {
             todosArray.splice(index, 1);
         }
     });
-    pagination();
+    render();
 });
 
 $body.on('dblclick', '.todo-label', function() {
@@ -58,14 +58,3 @@ $body.on('dblclick', '.todo-label', function() {
     });
 });
 
-$body.on('click', '#pages .page', function() {
-    $('#pages .page').removeClass('active');
-    $(this).addClass('active');
-    pagination();
-});
-
-$tab.click(function(){
-    $tab.removeClass('active');
-    $(this).addClass('active');
-    pagination('first');
-});
