@@ -1,0 +1,41 @@
+body {
+    background-image: url("https://images.unsplash.com/photo-1495542779398-9fec7dc7986c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1936&q=80");
+}
+.heading {
+    text-align: center;
+    font-family: Papyrus;
+    color: #444444;
+}
+
+.form-control {
+    text-align: center;
+}
+
+.todo-label {
+    text-align: center;
+}
+
+.navigatetools {
+    text-align: center;
+}
+
+#done-bar {
+    display: block;
+    float: right;
+}
+
+.entity {
+    opacity: 0.8;
+}
+
+.destroy {
+    opacity: 0;
+}
+
+.entity:hover {
+    background: whitesmoke;
+}
+
+.entity:hover > .col-xs-4 > .input-group-btn > .destroy {
+    opacity: 1;
+}
