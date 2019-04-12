@@ -13,19 +13,19 @@ const addTodo = () => {
     };
     todosArray.push(toDo);
     $newTodo.val("");
-    pagination('last');
+    render();
 };
 
-const render = (page) => {
-    const start         = page * postPerPage;
-    let currentArray    = detectArray();
-    let activeArray     = currentArray.slice(start - postPerPage, start);
-    let content         = '';
+const render = () => {
+    let contentDone         = '';
+    let contentActive = '';
     $listGroup.empty();
-    activeArray.forEach((el) => {
+    const doneTasks         = _.filter(todosArray, 'checked');
+    const activeTasks       = _.filter(todosArray, {'checked': false});
+    doneTasks.forEach((el) => {
         const className = (el.checked)  ? 'list-group-item row list-group-item-success entity'
                                         : 'list-group-item row entity';
-        content +=
+        contentDone +=
             `<li class='${className}' id='${el.id}'>
                 <div class='col-xs-4 col-md-1'>
                     <input type='checkbox' class='toggle'>
@@ -40,8 +40,29 @@ const render = (page) => {
                 </div>
             </li>`;
     });
-    $listGroup.append(content);
+    activeTasks.forEach((el) => {
+        const className = (el.checked)  ? 'list-group-item row list-group-item-success entity'
+            : 'list-group-item row entity';
+        contentActive +=
+            `<li class='${className}' id='${el.id}'>
+                <div class='col-xs-4 col-md-1'>
+                    <input type='checkbox' class='toggle'>
+                </div>
+                <div class='col-xs-4 col-md-9'>
+                    <p class='todo-label'>${el.text}</p>
+                </div>
+                <div class='col-xs-4 col-md-2'>
+                    <span class='input-group-btn'>
+                        <button class='destroy btn btn-danger default-style' type='button'>Delete</button>
+                    </span>
+                </div>
+            </li>`;
+    });
+    $('#activeTasks').append(contentActive);
+    $('#doneTasks').append(contentDone);
     $('li.list-group-item-success .toggle').prop('checked', true);
+    storage();
+    progressBar();
 };
 
 const editTodo = (newText, currentID) => {
@@ -50,40 +71,7 @@ const editTodo = (newText, currentID) => {
             el.text = $('#edit').val();
         }
     });
-    pagination();
-};
-
-const detectArray = () => {
-    const activeTab = $('.tab.active').attr('id');
-     if (activeTab == 'tab_checked') {
-        return _.filter(todosArray, 'checked');
-    } else if (activeTab == 'tab_active') {
-        return _.filter(todosArray, {'checked': false})
-    }
-    pagination();
-};
-
-const pagination = (flagPage) => {
-    const numberOfItems     = todosArray.length;
-    const pageCount         = Math.ceil(numberOfItems / postPerPage);
-    const pagesContainer    = $('#pages');
-    let pages               = '';
-    let currentPage         = $('.page.active a').attr('id') || 1;
-    if (currentPage > pageCount || flagPage == 'last') {
-        currentPage = pageCount;
-    }
-    if (flagPage == 'first') {
-        currentPage = 1;
-    }
-    pagesContainer.empty();
-    for (let i = 1; i <= pageCount; i++) {
-        const className = (currentPage == i) ? 'page active' : 'page';
-        pages += `<li class="${className}"><a href="#" id="${i}">${i}</a></li>`
-    }
-    pagesContainer.append(pages);
-    storage();
-    progressBar();
-    render(currentPage);
+    render();
 };
 
 const progressBar = () => {
